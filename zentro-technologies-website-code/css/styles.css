@@ -1,0 +1,544 @@
+/* ==========================================================================
+   ZENTRO Technologies — styles.css
+   All styling for the ZENTRO website (extracted from the live site, unchanged).
+   Brand colours live in the :root variables block in section 1 below —
+   change the palette there, in one place.
+   Sections: 1 Brand tokens · 2 Base/layout · 3 Header/nav · 4 Hero ·
+             5 Sections & cards · ... · Founder & CEO · Responsive rules last
+   ========================================================================== */
+
+      /* ==================================================================
+         1. BRAND TOKENS — edit the ZENTRO palette here, in one place.
+         Source: ZENTRO Brand & Developer Brief v1.0
+         ================================================================== */
+      :root {
+        --obsidian: #090B0F;        /* primary dark */
+        --platinum: #C6CBD2;        /* silver / muted lines on dark */
+        --electric-blue: #397BFF;   /* accent — use sparingly */
+        --off-white: #F5F6F8;       /* light background */
+
+        --bg: var(--off-white);
+        --surface: #FFFFFF;
+        --surface-alt: #ECEEF1;
+        --ink: #101319;             /* main text on light */
+        --ink-soft: #4A5160;        /* secondary text on light */
+        --line: #D9DDE3;            /* hairline borders on light */
+
+        --dark-bg: var(--obsidian);
+        --dark-surface: #11151C;
+        --dark-ink: #F2F4F7;
+        --dark-ink-soft: #AEB6C2;
+        --dark-line: #232A35;
+
+        --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+        --font-body: "Inter", system-ui, -apple-system, sans-serif;
+
+        --max-width: 1180px;
+        --radius: 6px;              /* small radius = architectural feel */
+      }
+
+      /* Dark mode: same palette, obsidian becomes the page background */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: var(--obsidian);
+          --surface: var(--dark-surface);
+          --surface-alt: #171C25;
+          --ink: var(--dark-ink);
+          --ink-soft: var(--dark-ink-soft);
+          --line: var(--dark-line);
+        }
+      }
+
+      /* ==================================================================
+         2. BASE STYLES
+         ================================================================== */
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.65;
+        font-size: 16.5px;
+        -webkit-font-smoothing: antialiased;
+      }
+      img { max-width: 100%; display: block; }
+      a { color: var(--electric-blue); }
+      :focus-visible { outline: 2px solid var(--electric-blue); outline-offset: 3px; }
+
+      /* Phone tap targets: at least 36px tall for interactive controls */
+      button, [role="button"], select, summary,
+      input:not([type="checkbox"], [type="radio"]) { min-height: 2.25rem; }
+      .nav a, .footer-nav a { display: inline-flex; align-items: center; min-height: 2.25rem; }
+
+      h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.12; margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+      p { margin: 0; }
+
+      .wrap { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+      section { padding: 112px 0; scroll-margin-top: 84px; }
+      @media (max-width: 640px) { section { padding: 68px 0; } }
+      ::selection { background: var(--electric-blue); color: #fff; }
+
+      /* Small section label (used sparingly, not above every section) */
+      .kicker {
+        font-family: var(--font-display);
+        font-size: 0.8rem; font-weight: 600;
+        letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--electric-blue);
+        margin-bottom: 16px;
+      }
+      .section-head { max-width: 680px; margin-bottom: 56px; }
+      .section-head h2 { font-size: clamp(2rem, 4.2vw, 2.85rem); margin-bottom: 16px; }
+      .section-head p { color: var(--ink-soft); font-size: 1.06rem; }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        font-family: var(--font-display); font-weight: 600; font-size: 0.98rem; letter-spacing: 0.015em;
+        padding: 13px 26px; border-radius: var(--radius);
+        text-decoration: none; cursor: pointer; border: 1px solid transparent;
+        transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        min-height: 48px;
+      }
+      .btn-primary { background: var(--electric-blue); color: #fff; }
+      .btn-primary:hover { background: #2B68DB; }
+      .btn-outline { background: transparent; color: var(--ink); border-color: var(--line); }
+      .btn-outline:hover { border-color: var(--ink-soft); }
+      .btn-outline-on-dark { background: transparent; color: #fff; border-color: #3A4353; }
+      .btn-outline-on-dark:hover { border-color: var(--platinum); }
+      .btn .arrow { transition: transform 0.18s ease; }
+      .btn:hover .arrow { transform: translateX(3px); }
+
+      /* Scroll-in animation (subtle; disabled with reduced motion above) */
+      .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s ease, transform 0.55s ease; }
+      .reveal.visible { opacity: 1; transform: none; }
+
+      /* ==================================================================
+         3. HEADER / NAVIGATION
+         ================================================================== */
+      .site-header {
+        position: sticky; top: 0; z-index: 50;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 72px; }
+      .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); min-height: 44px; }
+      .logo-text { line-height: 1.05; }
+      .logo-name { font-family: var(--font-display); font-weight: 700; font-size: 1.22rem; letter-spacing: 0.06em; display: block; }
+      .logo-sub { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.34em; color: var(--ink-soft); display: block; margin-top: 2px; }
+      .nav { display: flex; align-items: center; gap: 6px; }
+      .nav a {
+        color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.95rem;
+        padding: 6px 12px; border-radius: var(--radius);
+      }
+      .nav a:hover { color: var(--electric-blue); }
+      .nav a.active { color: var(--electric-blue); }
+      .nav .btn { margin-left: 12px; padding: 10px 20px; min-height: 44px; color: #fff; }
+      .nav .btn:hover { color: #fff; }
+      .menu-toggle {
+        display: none; background: none; border: 1px solid var(--line); border-radius: var(--radius);
+        width: 44px; height: 44px; cursor: pointer; align-items: center; justify-content: center;
+      }
+      @media (max-width: 860px) {
+        .menu-toggle { display: inline-flex; }
+        .nav {
+          display: none; position: absolute; top: 72px; left: 0; right: 0;
+          flex-direction: column; align-items: stretch; gap: 2px;
+          background: var(--surface); border-bottom: 1px solid var(--line); padding: 12px 24px 20px;
+        }
+        .nav.open { display: flex; }
+        .nav a { padding: 10px 8px; }
+        .nav .btn { margin: 10px 0 0; }
+      }
+
+      /* ==================================================================
+         4. HERO (dark obsidian panel)
+         ================================================================== */
+      .hero { background: var(--dark-bg); color: var(--dark-ink); padding: 0; position: relative; overflow: hidden; }
+      /* Faint architectural grid over the obsidian hero (pure CSS pattern) */
+      .hero::before {
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        background:
+          repeating-linear-gradient(to right, rgba(198,203,210,0.045) 0 1px, transparent 1px 118px),
+          repeating-linear-gradient(to bottom, rgba(198,203,210,0.045) 0 1px, transparent 1px 118px);
+      }
+      .hero .wrap { position: relative; z-index: 1; }
+      /* Oversized outlined "Z" watermark, bottom-right of the hero */
+      .hero-z {
+        position: absolute; right: -30px; bottom: -70px; z-index: 0; pointer-events: none;
+        font-family: var(--font-display); font-weight: 700; font-size: 340px; line-height: 1;
+        color: transparent; -webkit-text-stroke: 1px rgba(198,203,210,0.13);
+      }
+      @media (max-width: 860px) { .hero-z { font-size: 200px; bottom: auto; top: 8px; } }
+      .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; min-height: 640px; }
+      .hero-copy { padding: 96px 48px 96px 0; display: flex; flex-direction: column; justify-content: center; }
+      .hero-eyebrow {
+        font-family: var(--font-display); font-size: 0.78rem; font-weight: 600;
+        letter-spacing: 0.22em; text-transform: uppercase; color: var(--platinum);
+        display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
+      }
+      .hero-eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--electric-blue); }
+      .hero-copy h1 { font-size: clamp(2.6rem, 5.6vw, 4.35rem); font-weight: 700; line-height: 1.04; margin-bottom: 24px; }
+      .hero-copy h1 .accent { color: var(--electric-blue); }
+      .hero-sub { color: var(--dark-ink-soft); font-size: 1.15rem; max-width: 520px; margin-bottom: 36px; }
+      .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+      .hero-meta { margin-top: 52px; padding-top: 26px; border-top: 1px solid var(--dark-line); display: flex; flex-wrap: wrap; gap: 10px 34px; }
+      .hero-meta span { font-size: 0.9rem; color: var(--dark-ink-soft); display: inline-flex; align-items: center; gap: 9px; }
+      .hero-meta .dot { width: 7px; height: 7px; background: var(--electric-blue); flex: none; }
+      .hero-photo { position: relative; min-height: 320px; }
+      .hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      @media (max-width: 860px) {
+        .hero-grid { grid-template-columns: 1fr; min-height: 0; }
+        .hero-copy { padding: 64px 0 48px; }
+        .hero-photo { min-height: 260px; margin: 0 -24px; }
+      }
+
+      /* ==================================================================
+         5. INTRODUCTION + AUDIENCE STRIP
+         ================================================================== */
+      .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+      @media (max-width: 860px) { .intro-grid { grid-template-columns: 1fr; gap: 28px; } }
+      .intro-grid h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); }
+      .intro-grid .lead { font-size: 1.12rem; color: var(--ink); margin-bottom: 18px; }
+      .intro-grid p { color: var(--ink-soft); margin-bottom: 16px; }
+      .audience { margin-top: 56px; border-top: 1px solid var(--line); }
+      .audience-row {
+        display: grid; grid-template-columns: 56px 1fr 1.4fr; gap: 20px; align-items: baseline;
+        padding: 20px 0; border-bottom: 1px solid var(--line);
+      }
+      .audience-row .num { font-family: var(--font-display); color: var(--electric-blue); font-weight: 600; }
+      .audience-row h3 { font-size: 1.05rem; }
+      .audience-row p { color: var(--ink-soft); font-size: 0.97rem; }
+      @media (max-width: 640px) { .audience-row { grid-template-columns: 36px 1fr; } .audience-row p { grid-column: 2; } }
+
+      /* ==================================================================
+         6. SERVICES (the four pillars)
+         ================================================================== */
+      .services-section { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .service {
+        display: grid; grid-template-columns: 110px 1fr 1fr; gap: 32px;
+        padding: 44px 0; border-top: 1px solid var(--line);
+      }
+      .service:first-of-type { border-top: none; padding-top: 8px; }
+      .service-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--platinum); line-height: 1; }
+      @media (prefers-color-scheme: dark) { .service-num { color: #39424F; } }
+      .service h3 { font-size: 1.5rem; margin-bottom: 12px; }
+      .service .benefit { color: var(--ink-soft); margin-bottom: 20px; max-width: 440px; }
+      .service-link {
+        font-family: var(--font-display); font-weight: 600; font-size: 0.95rem;
+        background: none; border: none; padding: 8px 0; cursor: pointer; color: var(--electric-blue);
+        display: inline-flex; align-items: center; gap: 7px; min-height: 44px;
+      }
+      .service-link:hover { text-decoration: underline; }
+      .deliverables { list-style: none; margin: 4px 0 0; padding: 0; }
+      .deliverables li {
+        padding: 11px 0 11px 22px; border-bottom: 1px solid var(--line);
+        position: relative; font-weight: 500; font-size: 0.99rem;
+      }
+      .deliverables li:last-child { border-bottom: none; }
+      .deliverables li::before { content: ""; position: absolute; left: 0; top: 19px; width: 8px; height: 8px; background: var(--electric-blue); }
+      .deliverables li small { display: block; font-weight: 400; color: var(--ink-soft); margin-top: 2px; }
+      @media (max-width: 860px) { .service { grid-template-columns: 1fr; gap: 16px; } .service-num { font-size: 1.6rem; } }
+
+      /* ==================================================================
+         7. WHY ZENTRO
+         ================================================================== */
+      .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+      .why-item { background: var(--bg); padding: 36px 32px; }
+      .why-item h3 { font-size: 1.2rem; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+      .why-item h3 svg { flex: none; }
+      .why-item p { color: var(--ink-soft); font-size: 0.99rem; }
+      @media (max-width: 700px) { .why-grid { grid-template-columns: 1fr; } }
+      .philosophy {
+        margin-top: 48px; display: flex; flex-wrap: wrap; gap: 12px 40px; justify-content: space-between;
+        font-family: var(--font-display); font-size: clamp(1.15rem, 2.6vw, 1.6rem); font-weight: 600;
+      }
+      .philosophy span em { font-style: normal; color: var(--electric-blue); }
+
+      /* ==================================================================
+         8. ABOUT (purpose, vision, mission, values)
+         ================================================================== */
+      .about-section { background: var(--dark-bg); color: var(--dark-ink); }
+      .about-section .section-head p { color: var(--dark-ink-soft); }
+      .about-section h2 { color: var(--dark-ink); }
+      .vm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--dark-line); border: 1px solid var(--dark-line); margin-bottom: 56px; }
+      .vm-item { background: var(--dark-bg); padding: 36px 32px; }
+      .vm-item h3 { font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--electric-blue); margin-bottom: 14px; }
+      .vm-item p { font-size: 1.08rem; color: var(--dark-ink); }
+      @media (max-width: 700px) { .vm-grid { grid-template-columns: 1fr; } }
+      .values-head { font-size: 1.3rem; margin-bottom: 22px; }
+      .values { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; list-style: none; margin: 0; padding: 0; }
+      .values li { border-top: 2px solid var(--electric-blue); padding-top: 16px; }
+      .values h4 { font-size: 1.02rem; margin-bottom: 7px; }
+      .values p { color: var(--dark-ink-soft); font-size: 0.93rem; }
+      @media (max-width: 900px) { .values { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 520px) { .values { grid-template-columns: 1fr; } }
+
+      /* ==================================================================
+         9. OUR WORK — small project cards.
+         Each card is just three things: a home page screenshot, the site
+         name, and one short "why it works" line. Nothing more.
+         ================================================================== */
+      .work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 360px)); gap: 28px; }
+      .work-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s ease; }
+      .work-card:hover { border-color: var(--ink-soft); }
+      .work-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; border-bottom: 1px solid var(--line); }
+      .work-card-body { padding: 20px 22px 24px; }
+      .work-card-body h3 { font-size: 1.25rem; margin-bottom: 8px; }
+      .work-card-body p { color: var(--ink-soft); font-size: 0.96rem; }
+
+      /* ==================================================================
+         10. PROCESS (six steps)
+         ================================================================== */
+      .process-section { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); list-style: none; margin: 0; padding: 0; }
+      .process-step { background: var(--surface); padding: 30px 28px; }
+      .process-step .step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+      .process-step .step-num { font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; color: var(--electric-blue); letter-spacing: 0.1em; }
+      .process-step .step-arrow { color: var(--platinum); font-family: var(--font-display); }
+      .process-step h3 { font-size: 1.18rem; margin-bottom: 8px; }
+      .process-step p { color: var(--ink-soft); font-size: 0.95rem; }
+      @media (max-width: 860px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 540px) { .process-grid { grid-template-columns: 1fr; } }
+
+      /* ==================================================================
+         11. FOUNDER & CEO — dedicated section (creative, premium styling)
+         Layered portrait frame, architectural grid + outlined "Z"
+         watermark, quote treatment, philosophy chips, gentle hover.
+         All motion honours prefers-reduced-motion via the global rule.
+         ================================================================== */
+      .founder-section { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; overflow: hidden; isolation: isolate; }
+      /* Subtle architectural grid behind the founder content */
+      .founder-section::before {
+        content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+        background:
+          repeating-linear-gradient(to right, color-mix(in srgb, var(--ink) 4%, transparent) 0 1px, transparent 1px 118px),
+          repeating-linear-gradient(to bottom, color-mix(in srgb, var(--ink) 4%, transparent) 0 1px, transparent 1px 118px);
+      }
+      /* Large outlined "Z" watermark, top-right — clipped by overflow:hidden */
+      .founder-section::after {
+        content: "Z"; position: absolute; right: -18px; top: -64px; z-index: 0; pointer-events: none;
+        font-family: var(--font-display); font-weight: 700; font-size: 300px; line-height: 1;
+        color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--ink) 9%, transparent);
+      }
+      @media (max-width: 640px) { .founder-section::after { font-size: 180px; top: -36px; right: -10px; } }
+      .founder-section .wrap { position: relative; z-index: 1; }
+      .founder-grid { display: grid; grid-template-columns: 380px 1fr; gap: 64px; align-items: start; }
+      @media (max-width: 860px) { .founder-grid { grid-template-columns: 1fr; gap: 44px; } }
+      /* --- Layered portrait frame --- */
+      .founder-photo-wrap { position: relative; max-width: 420px; }
+      /* Offset platinum outline behind the photo card */
+      .founder-photo-wrap::before {
+        content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+        border: 1px solid var(--platinum); border-radius: var(--radius);
+        transform: translate(16px, 16px);
+      }
+      @media (prefers-color-scheme: dark) { .founder-photo-wrap::before { border-color: #39424F; } }
+      /* Small electric-blue block accent, bottom-left of the offset frame */
+      .founder-photo-wrap::after {
+        content: ""; position: absolute; left: -10px; bottom: 44px; z-index: 2; pointer-events: none;
+        width: 10px; height: 56px; background: var(--electric-blue);
+      }
+      .founder-photo-panel {
+        background: var(--dark-bg); color: var(--dark-ink); border-radius: var(--radius); overflow: hidden;
+        border: 1px solid var(--dark-line); position: relative; z-index: 1;
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+      }
+      @media (hover: hover) {
+        .founder-photo-panel:hover { transform: translateY(-6px); box-shadow: 0 24px 48px -18px rgba(9,11,15,0.35); }
+        .founder-photo-panel:hover img.founder-photo { transform: scale(1.035); }
+      }
+      .founder-photo-frame { position: relative; overflow: hidden; }
+      .founder-photo-panel img.founder-photo { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: center 18%; display: block; transition: transform 0.6s ease; }
+      /* Electric-blue corner accents on the photo */
+      .photo-corner { position: absolute; width: 26px; height: 26px; z-index: 3; pointer-events: none; }
+      .photo-corner.tl { top: 12px; left: 12px; border-top: 2px solid var(--electric-blue); border-left: 2px solid var(--electric-blue); }
+      .photo-corner.tr { top: 12px; right: 12px; border-top: 2px solid var(--electric-blue); border-right: 2px solid var(--electric-blue); }
+      .photo-corner.bl { bottom: 12px; left: 12px; border-bottom: 2px solid var(--electric-blue); border-left: 2px solid var(--electric-blue); }
+      .photo-corner.br { bottom: 12px; right: 12px; border-bottom: 2px solid var(--electric-blue); border-right: 2px solid var(--electric-blue); }
+      /* AH monogram seal overlapping the photo / caption edge */
+      .founder-seal {
+        position: absolute; right: 18px; bottom: 18px; z-index: 4;
+        width: 52px; height: 52px; border-radius: 50%;
+        background: var(--electric-blue); color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em;
+        border: 3px solid var(--dark-bg);
+      }
+      /* Refined caption bar: blue rule above the name */
+      .founder-photo-caption { padding: 20px 24px 24px; position: relative; }
+      .founder-photo-caption::before { content: ""; display: block; width: 40px; height: 3px; background: var(--electric-blue); margin-bottom: 14px; }
+      .founder-photo-caption strong { display: block; font-family: var(--font-display); font-size: 1.45rem; line-height: 1.1; padding-right: 56px; }
+      .founder-photo-caption span { display: block; margin-top: 6px; color: var(--electric-blue); font-family: var(--font-display); font-weight: 600; font-size: 0.88rem; letter-spacing: 0.14em; text-transform: uppercase; }
+      .founder-photo-caption small { display: block; margin-top: 8px; color: var(--dark-ink-soft); font-size: 0.88rem; }
+      /* --- Founder copy --- */
+      .founder-content h2 { font-size: clamp(2rem, 4.2vw, 2.85rem); margin-bottom: 10px; display: inline-block; position: relative; padding-bottom: 10px; }
+      /* Animated accent underline under his name — grows in on scroll-reveal */
+      .founder-content h2::after {
+        content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0;
+        background: var(--electric-blue); transition: width 0.7s ease 0.25s;
+      }
+      .founder-grid.visible .founder-content h2::after { width: 72px; }
+      .founder-role-line { font-family: var(--font-display); font-weight: 600; color: var(--electric-blue); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.92rem; margin-bottom: 26px; }
+      /* Statement as a proper quote: oversized decorative mark + blue accent */
+      blockquote.founder-quote { margin: 0 0 26px; padding: 6px 0 6px 26px; border-left: 3px solid var(--electric-blue); position: relative; }
+      blockquote.founder-quote::before {
+        content: "\201C"; position: absolute; left: 14px; top: -34px;
+        font-family: var(--font-display); font-weight: 700; font-size: 4.2rem; line-height: 1;
+        color: var(--electric-blue); opacity: 0.22; pointer-events: none;
+      }
+      blockquote.founder-quote p { font-family: var(--font-display); font-size: clamp(1.25rem, 2.6vw, 1.6rem); line-height: 1.45; font-weight: 500; position: relative; }
+      .founder-about { color: var(--ink-soft); margin-bottom: 16px; max-width: 620px; }
+      .founder-about strong { color: var(--ink); }
+      /* Philosophy as three elegant chips */
+      .founder-philosophy { margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 10px; font-family: var(--font-display); font-weight: 600; font-size: 0.97rem; }
+      .founder-philosophy span {
+        display: inline-flex; align-items: center; gap: 9px;
+        border: 1px solid var(--line); border-radius: 999px; background: var(--bg);
+        padding: 9px 16px; transition: border-color 0.2s ease, transform 0.2s ease;
+      }
+      .founder-philosophy span::before { content: ""; width: 7px; height: 7px; flex: none; background: var(--electric-blue); border-radius: 50%; }
+      @media (hover: hover) { .founder-philosophy span:hover { border-color: var(--electric-blue); transform: translateY(-2px); } }
+      .founder-philosophy span em { font-style: normal; color: var(--electric-blue); }
+      .founder-signoff { margin-top: 22px; display: flex; align-items: center; gap: 14px; }
+      .founder-signoff .line { width: 36px; height: 1px; background: var(--electric-blue); }
+      .founder-signoff p { font-size: 0.95rem; color: var(--ink-soft); }
+      .founder-signoff p strong { color: var(--ink); font-family: var(--font-display); }
+      .founder-ctas { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+      /* ==================================================================
+         12. CONTACT FORM
+         ================================================================== */
+      .contact-section { background: var(--surface); border-top: 1px solid var(--line); }
+      .contact-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; align-items: start; }
+      @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; gap: 36px; } }
+      .contact-side h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); margin-bottom: 16px; }
+      .contact-side p { color: var(--ink-soft); margin-bottom: 16px; }
+      .contact-side .expect { border-top: 1px solid var(--line); margin-top: 28px; padding-top: 22px; }
+      .contact-side .expect li { margin-bottom: 8px; color: var(--ink-soft); }
+      form.enquiry { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+      .field { display: flex; flex-direction: column; gap: 7px; }
+      .field.full { grid-column: 1 / -1; }
+      @media (max-width: 560px) { form.enquiry { grid-template-columns: 1fr; } }
+      .field label { font-family: var(--font-display); font-weight: 600; font-size: 0.92rem; }
+      .field label .optional { font-family: var(--font-body); font-weight: 400; color: var(--ink-soft); font-size: 0.85rem; }
+      .field input, .field select, .field textarea {
+        font: inherit; font-size: 16px; /* 16px stops iOS auto-zoom on focus */
+        color: var(--ink); background: var(--bg);
+        border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; width: 100%;
+        min-height: 48px;
+      }
+      .field textarea { min-height: 130px; resize: vertical; }
+      .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--electric-blue); outline: 2px solid var(--electric-blue); outline-offset: 1px; }
+      .field .error { color: #C62F3B; font-size: 0.87rem; display: none; }
+      .field.invalid .error { display: block; }
+      .field.invalid input, .field.invalid select, .field.invalid textarea { border-color: #C62F3B; }
+      @media (prefers-color-scheme: dark) { .field .error { color: #FF7A85; } }
+      .form-actions { grid-column: 1 / -1; }
+      .privacy-note { grid-column: 1 / -1; font-size: 0.87rem; color: var(--ink-soft); }
+      /* Success panel (shown by JS after a valid submit) */
+      .form-success {
+        display: none; border: 1px solid var(--electric-blue); border-radius: var(--radius);
+        padding: 32px; background: var(--bg);
+      }
+      .form-success.show { display: block; }
+      .form-success h3 { font-size: 1.4rem; margin-bottom: 12px; display: flex; gap: 12px; align-items: center; }
+      .form-success p { color: var(--ink-soft); margin-bottom: 14px; }
+      .form-success .summary {
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: 16px 18px; font-size: 0.93rem; white-space: pre-wrap; word-break: break-word; margin-bottom: 20px;
+      }
+      .form-success .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+      /* ==================================================================
+         13. FINAL CTA + FOOTER
+         ================================================================== */
+      .final-cta { background: var(--dark-bg); color: var(--dark-ink); text-align: left; }
+      .final-cta h2 { font-size: clamp(2.1rem, 5vw, 3.4rem); margin-bottom: 18px; max-width: 720px; }
+      .final-cta p { color: var(--dark-ink-soft); font-size: 1.1rem; margin-bottom: 34px; max-width: 560px; }
+      footer { background: var(--dark-bg); color: var(--dark-ink-soft); border-top: 1px solid var(--dark-line); padding: 56px 0 40px; }
+      .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+      @media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr; gap: 28px; } }
+      footer .logo { color: var(--dark-ink); }
+      footer .logo-sub { color: var(--dark-ink-soft); }
+      .footer-tagline { margin-top: 16px; font-size: 0.95rem; max-width: 300px; }
+      footer h3 { color: var(--dark-ink); font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; }
+      .footer-nav { list-style: none; margin: 0; padding: 0; }
+      .footer-nav a { color: var(--dark-ink-soft); text-decoration: none; padding: 4px 0; font-size: 0.97rem; }
+      .footer-nav a:hover { color: #fff; }
+      .footer-services { list-style: none; margin: 0; padding: 0; font-size: 0.97rem; }
+      .footer-services li { padding: 5px 0; }
+      .footer-bottom { border-top: 1px solid var(--dark-line); padding-top: 24px; display: flex; flex-wrap: wrap; gap: 10px 28px; justify-content: space-between; font-size: 0.88rem; }
+
+      /* 404 / not-found panel (shown by JS for an unknown #hash link) */
+      .not-found { display: none; background: var(--dark-bg); color: var(--dark-ink); padding: 90px 0; }
+      .not-found.show { display: block; }
+      .not-found h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 14px; }
+      .not-found p { color: var(--dark-ink-soft); margin-bottom: 28px; max-width: 480px; }
+
+      /* ==================================================================
+         14. RESPONSIVE PASS — phone / tablet / laptop / wide desktop.
+         Breakpoints: <=480 small phone, <=640 phone, <=860 tablet,
+         861–1100 small laptop, >1100 desktop (editorial max-width grid).
+         ================================================================== */
+      /* Last-resort guard: nothing may push the page sideways */
+      html, body { overflow-x: clip; }
+      img, svg, video { max-width: 100%; }
+
+      /* Tablet (641–1024px): two-column layouts where they help,
+         instead of a stretched phone view */
+      @media (min-width: 641px) and (max-width: 1024px) {
+        /* Founder: photo + copy side by side on tablet */
+        .founder-grid { grid-template-columns: 290px 1fr; gap: 40px; }
+        /* Services: number + intro in row one, deliverables below-right */
+        .service { grid-template-columns: 72px 1fr; gap: 14px 24px; }
+        .service .deliverables { grid-column: 2; }
+        .service-num { font-size: 1.7rem; }
+      }
+      /* Small laptop (861–1100px): slightly tighter founder columns */
+      @media (min-width: 861px) and (max-width: 1100px) {
+        .founder-grid { grid-template-columns: 320px 1fr; gap: 44px; }
+        .hero-copy { padding-right: 32px; }
+      }
+
+      /* Phone (<=640px): single column, generous tap targets */
+      @media (max-width: 640px) {
+        .wrap { padding: 0 20px; }
+        .section-head { margin-bottom: 40px; }
+        /* Founder frame: smaller offset so the outline never nears the edge */
+        .founder-photo-wrap::before { transform: translate(10px, 10px); }
+        .founder-photo-wrap::after { left: -6px; height: 44px; }
+        .founder-photo-wrap { margin: 0 auto; width: 100%; }
+        .founder-ctas .btn { flex: 1 1 100%; }
+        /* Hero CTAs stack full-width */
+        .hero-ctas .btn { flex: 1 1 100%; }
+        .hero-photo { margin: 0 -20px; }
+        /* Work card spans the full content width */
+        .work-grid { grid-template-columns: 1fr; }
+        .work-card { max-width: none; }
+        /* Philosophy lines stack readably */
+        .philosophy { flex-direction: column; gap: 8px; }
+        /* Success panel breathing room */
+        .form-success { padding: 24px 20px; }
+        /* Footer bottom stacks */
+        .footer-bottom { flex-direction: column; gap: 6px; }
+      }
+      /* Small phone (<=400px): tighten the largest type a touch more */
+      @media (max-width: 400px) {
+        body { font-size: 16px; }
+        .hero-copy h1 { font-size: 2.45rem; }
+        .logo-name { font-size: 1.1rem; }
+        .founder-photo-caption { padding: 18px 18px 20px; }
+        .why-item, .vm-item, .process-step { padding: 26px 22px; }
+      }
+      /* Wide desktop (>=1440px): keep the editorial grid, add air */
+      @media (min-width: 1440px) {
+        section { padding: 128px 0; }
+        .hero-grid { min-height: 700px; }
+      }

@@ -1,0 +1,615 @@
+<!doctype html>
+<!--
+  ============================================================================
+  ZENTRO Technologies — company website (single-page site)
+  ============================================================================
+  HOW TO EDIT THIS SITE (for the engineer who picks this up later):
+
+  • This standalone folder splits the site into: index.html (content),
+    css/styles.css (all styling), js/main.js (all behaviour).
+    Images live in ./assets/.
+  • COLOURS: change the brand palette in ONE place — the CSS variables in
+    the ":root" block at the top of css/styles.css.
+  • TEXT / CONTENT: each part of the page is a clearly labelled <section>
+    with an HTML comment above it (Hero, Introduction, Services, Why ZENTRO,
+    About, Founder & CEO, Our Work, Process, Contact, Footer). Edit the text
+    directly inside the section you need.
+  • SERVICES in the contact form dropdown: the <option> list inside the
+    contact <form> — keep it in sync with the four service sections.
+  • CONTACT DETAILS: ZENTRO has not confirmed a public email / phone /
+    social links yet. When they are confirmed, add them in the Contact
+    section (search this file for "ADD CONTACT DETAILS HERE").
+  • BEHAVIOUR: all JavaScript is vanilla JS in js/main.js,
+    split into small commented blocks (mobile menu, scroll animations,
+    contact form). No frameworks, no build step.
+  ============================================================================
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- SEO basics -->
+    <title>ZENTRO Technologies — Building the foundation of tomorrow</title>
+    <meta name="description" content="ZENTRO Technologies builds websites and digital solutions for shops, businesses, startups and SMEs — digital presence, brand experience, business technology and growth infrastructure." />
+    <meta property="og:title" content="ZENTRO Technologies — Building the foundation of tomorrow" />
+    <meta property="og:description" content="We help businesses build, establish and scale through intelligent digital solutions." />
+    <meta property="og:type" content="website" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Empty inline icon: stops the browser fetching /favicon.ico (404s). -->
+    <link rel="icon" href="data:," />
+
+    <!-- Fonts: Space Grotesk (display) + Inter (body) — from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Structured data: basic organisation info (no invented contact data) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ZENTRO Technologies",
+      "slogan": "Building the foundation of tomorrow.",
+      "founder": { "@type": "Person", "name": "Abdul Hadi", "jobTitle": "Founder & CEO" },
+      "description": "Technology company building websites and digital solutions for businesses, startups and SMEs."
+    }
+    </script>
+
+    <!-- Styles: all CSS lives in css/styles.css -->
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+    
+  </head>
+  <body>
+
+    <!-- ================= HEADER / NAVIGATION ================= -->
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <!-- Logo: geometric "Z" mark (inline SVG) + wordmark.
+             To reuse elsewhere, copy this SVG and the .logo styles. -->
+        <a class="logo" href="#home" aria-label="ZENTRO Technologies — home">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" aria-hidden="true">
+            <rect x="1.5" y="1.5" width="35" height="35" stroke="currentColor" stroke-width="2"/>
+            <path d="M10 11 H28 L16 27 H28" stroke="#397BFF" stroke-width="3.4" stroke-linecap="square" fill="none"/>
+          </svg>
+          <span class="logo-text">
+            <span class="logo-name">ZENTRO</span>
+            <span class="logo-sub">TECHNOLOGIES</span>
+          </span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+
+        <nav class="nav" id="mainNav" aria-label="Main navigation">
+          <a href="#home" data-nav="home">Home</a>
+          <a href="#about" data-nav="about">About</a>
+          <a href="#founder" data-nav="founder">Founder &amp; CEO</a>
+          <a href="#services" data-nav="services">Services</a>
+          <a href="#work" data-nav="work">Our Work</a>
+          <a href="#contact" data-nav="contact">Contact</a>
+          <a class="btn btn-primary" href="#contact">Start a Project</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ================= NOT FOUND (shown only for a bad #link) ================= -->
+      <div class="not-found" id="notFound" role="alert">
+        <div class="wrap">
+          <p class="kicker">404</p>
+          <h2>This page doesn&rsquo;t exist.</h2>
+          <p>The link you followed doesn&rsquo;t match any section of the ZENTRO site. Everything we do is one click away, below.</p>
+          <a class="btn btn-primary" href="#home">Back to home</a>
+        </div>
+      </div>
+
+      <!-- ================= HOME: HERO ================= -->
+      <section class="hero" id="home">
+        <span class="hero-z" aria-hidden="true">Z</span>
+        <div class="wrap">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <p class="hero-eyebrow">ZENTRO Technologies</p>
+              <h1>Building the foundation of <span class="accent">tomorrow.</span></h1>
+              <p class="hero-sub">We help businesses build, establish and scale through intelligent digital solutions.</p>
+              <div class="hero-ctas">
+                <a class="btn btn-primary" href="#contact">Start a Project <span class="arrow" aria-hidden="true">&rarr;</span></a>
+                <a class="btn btn-outline-on-dark" href="#services">Explore Our Services</a>
+              </div>
+              <div class="hero-meta" aria-label="What ZENTRO builds">
+                <span><i class="dot" aria-hidden="true"></i> Websites for shops &amp; businesses</span>
+                <span><i class="dot" aria-hidden="true"></i> Startups &amp; SMEs</span>
+                <span><i class="dot" aria-hidden="true"></i> Long-term technology partner</span>
+              </div>
+            </div>
+            <div class="hero-photo" aria-hidden="true">
+              <img src="assets/architecture.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= HOME: INTRODUCTION ================= -->
+      <section id="intro">
+        <div class="wrap">
+          <div class="intro-grid reveal">
+            <h2>Technology built around your business.</h2>
+            <div>
+              <p class="lead">ZENTRO Technologies partners with businesses to build powerful digital experiences, modern technology solutions and scalable online infrastructure.</p>
+              <p>Many businesses know they need a stronger presence online, but not where to start — or who to trust with it. We solve that problem end to end: a professional website that represents you properly, systems that make day-to-day work easier, and support that stays after launch.</p>
+              <p>From establishing a digital presence to developing the solutions that support your next stage of growth, ZENTRO makes technology work for business. We don&rsquo;t just build digital products — we build the foundation businesses grow on.</p>
+            </div>
+          </div>
+
+          <!-- Who we build for -->
+          <div class="audience reveal" aria-label="Who ZENTRO works with">
+            <div class="audience-row">
+              <span class="num">01</span>
+              <h3>Shops &amp; local businesses</h3>
+              <p>A professional website that shows what you sell, where you are, and how customers can reach you.</p>
+            </div>
+            <div class="audience-row">
+              <span class="num">02</span>
+              <h3>Startups</h3>
+              <p>A credible launch presence — landing pages and websites that explain your idea clearly from day one.</p>
+            </div>
+            <div class="audience-row">
+              <span class="num">03</span>
+              <h3>Growing SMEs</h3>
+              <p>Better digital systems: refreshed websites, dashboards and tools that grow with the business.</p>
+            </div>
+            <div class="audience-row">
+              <span class="num">04</span>
+              <h3>Established businesses</h3>
+              <p>A modern refresh of an outdated website, and a reliable partner for ongoing improvements.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SERVICES: THE FOUR PILLARS =================
+           Each pillar is one .service block: number, name, benefit text,
+           deliverables list, and an enquiry button. The button carries a
+           data-service value that pre-selects the contact form dropdown. -->
+      <section class="services-section" id="services">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="kicker">Services</p>
+            <h2>What we can build for you</h2>
+            <p>Four connected areas of work, starting where most businesses need us first: a strong digital presence.</p>
+          </div>
+
+          <!-- Pillar 01 -->
+          <article class="service reveal">
+            <div class="service-num" aria-hidden="true">01</div>
+            <div>
+              <h3>Digital Presence</h3>
+              <p class="benefit">Your business, presented professionally online — so customers can find you, understand what you offer, and contact you with confidence.</p>
+              <button type="button" class="service-link" data-service="Digital Presence">Discuss a website <span aria-hidden="true">&rarr;</span></button>
+            </div>
+            <ul class="deliverables">
+              <li>Business websites<small>A complete, professional home for your business online.</small></li>
+              <li>Landing pages<small>Focused pages for a product, offer or campaign.</small></li>
+              <li>Portfolio websites<small>Show your work clearly to win better clients.</small></li>
+              <li>E-commerce platforms<small>Sell online with a store built around your products.</small></li>
+            </ul>
+          </article>
+
+          <!-- Pillar 02 -->
+          <article class="service reveal">
+            <div class="service-num" aria-hidden="true">02</div>
+            <div>
+              <h3>Brand &amp; Digital Experience</h3>
+              <p class="benefit">A consistent, professional identity across everything customers see — so your business looks as good as the work you do.</p>
+              <button type="button" class="service-link" data-service="Brand &amp; Digital Experience">Discuss your brand <span aria-hidden="true">&rarr;</span></button>
+            </div>
+            <ul class="deliverables">
+              <li>Brand identity<small>Logo, colours and a visual language that fits your business.</small></li>
+              <li>UI/UX design<small>Interfaces designed around how your customers actually behave.</small></li>
+              <li>Business graphics<small>Clean, on-brand graphics for everyday business use.</small></li>
+              <li>Digital experiences<small>Polished, considered experiences across web and mobile.</small></li>
+            </ul>
+          </article>
+
+          <!-- Pillar 03 -->
+          <article class="service reveal">
+            <div class="service-num" aria-hidden="true">03</div>
+            <div>
+              <h3>Business Technology</h3>
+              <p class="benefit">Practical tools that remove manual work and give you a clearer view of your business — built around how you already operate.</p>
+              <button type="button" class="service-link" data-service="Business Technology">Discuss a tool or system <span aria-hidden="true">&rarr;</span></button>
+            </div>
+            <ul class="deliverables">
+              <li>Workflow automation<small>Automate repetitive steps so your team can focus on real work.</small></li>
+              <li>Business dashboards<small>Your key numbers, visible at a glance.</small></li>
+              <li>Custom business tools<small>Tools shaped to your process, not the other way round.</small></li>
+              <li>Software solutions<small>Practical software for a specific business problem.</small></li>
+            </ul>
+          </article>
+
+          <!-- Pillar 04 -->
+          <article class="service reveal">
+            <div class="service-num" aria-hidden="true">04</div>
+            <div>
+              <h3>Growth Infrastructure</h3>
+              <p class="benefit">Launch is the starting line, not the finish. We keep your site fast, secure and improving as your business grows.</p>
+              <button type="button" class="service-link" data-service="Growth Infrastructure">Discuss ongoing support <span aria-hidden="true">&rarr;</span></button>
+            </div>
+            <ul class="deliverables">
+              <li>Website maintenance<small>Updates and upkeep handled, without you chasing it.</small></li>
+              <li>Technical support<small>A dependable person to call when something needs fixing.</small></li>
+              <li>Performance optimization<small>Faster pages that keep visitors and search engines happy.</small></li>
+              <li>Ongoing digital improvements<small>Steady, planned improvements instead of a neglected site.</small></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= HOME: WHY ZENTRO ================= -->
+      <section id="why">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="kicker">Why ZENTRO</p>
+            <h2>A partner, not just a provider</h2>
+            <p>We focus on business outcomes, trust, quality and long-term partnerships — and we say plainly what we can and cannot do.</p>
+          </div>
+          <div class="why-grid reveal">
+            <div class="why-item">
+              <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#397BFF" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Clear communication</h3>
+              <p>You always know what is being built, what it costs in effort, and what happens next. No jargon used to hide uncertainty.</p>
+            </div>
+            <div class="why-item">
+              <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#397BFF" stroke-width="2" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="11" cy="11" r="2"/></svg>Thoughtful execution</h3>
+              <p>Design and development decisions are made deliberately — premium, precise work that holds up as your business grows.</p>
+            </div>
+            <div class="why-item">
+              <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#397BFF" stroke-width="2" aria-hidden="true"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10z"/></svg>Dependable support</h3>
+              <p>We stay accountable after launch. Maintenance, support and improvements are part of the relationship, not an afterthought.</p>
+            </div>
+            <div class="why-item">
+              <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#397BFF" stroke-width="2" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg>Scalable thinking</h3>
+              <p>We build foundations, not dead ends — so new services, pages and systems can be added when your business is ready for them.</p>
+            </div>
+          </div>
+          <p class="philosophy reveal" aria-label="ZENTRO philosophy">
+            <span>Build with <em>purpose.</em></span>
+            <span>Deliver with <em>precision.</em></span>
+            <span>Grow with <em>vision.</em></span>
+          </p>
+        </div>
+      </section>
+
+      <!-- ================= ABOUT ZENTRO ================= -->
+      <section class="about-section" id="about">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="kicker">About ZENTRO</p>
+            <h2>Why ZENTRO exists</h2>
+            <p>ZENTRO helps businesses establish a strong digital presence, improve how they operate and prepare for sustainable growth through practical, well-designed technology.</p>
+          </div>
+
+          <div class="vm-grid reveal">
+            <div class="vm-item">
+              <h3>Our Vision</h3>
+              <p>To empower businesses with technology that creates opportunities, strengthens operations and enables sustainable growth.</p>
+            </div>
+            <div class="vm-item">
+              <h3>Our Mission</h3>
+              <p>To make powerful digital solutions accessible, practical and valuable for businesses of every size.</p>
+            </div>
+          </div>
+
+          <h3 class="values-head reveal">How we work — our values</h3>
+          <ul class="values reveal">
+            <li>
+              <h4>Purpose first</h4>
+              <p>Every page and feature exists for a business reason. If it doesn&rsquo;t help your business, we don&rsquo;t build it.</p>
+            </li>
+            <li>
+              <h4>Precision in delivery</h4>
+              <p>Careful, considered work — designed properly, built cleanly, and checked before it reaches your customers.</p>
+            </li>
+            <li>
+              <h4>Honesty over hype</h4>
+              <p>No exaggerated claims and no promises we cannot substantiate. Clear scope, clear timelines, clear pricing conversations.</p>
+            </li>
+            <li>
+              <h4>Built to grow</h4>
+              <p>We think beyond the first launch, so what we build today can support where your business goes next.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ================= OUR WORK — SMALL PROJECT CARDS =================
+           HOW TO ADD A NEW PROJECT IN FUTURE (for William / any engineer):
+           1. Easiest way: tell Terry / ZENTRO the site name, one short
+              "why it works" line, and send a screenshot of the site's
+              home page.
+           2. Engineer route: copy the KGN Premium Bikes
+              <article class="work-card"> block below and paste the copy
+              directly underneath it, inside .work-grid. Then change only
+              three things: the screenshot (save it in ./assets/ and update
+              the <img> src and alt), the site name in the <h3>, and the
+              one "why it works" line in the <p>. Keep the same classes —
+              styling is automatic.
+           ============================================================ -->
+      <section id="work">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="kicker">Our Work</p>
+            <h2>Real work, built for a real business</h2>
+            <p>Sites we&rsquo;ve built — and why they work.</p>
+          </div>
+
+          <div class="work-grid">
+            <!-- ==========================================================
+                 PROJECT CARD — copy this whole <article> to add a new
+                 project, then change only the screenshot, the site name,
+                 and the one "why it works" line.
+                 ========================================================== -->
+            <article class="work-card reveal">
+              <img src="assets/kgn-homepage.png" alt="KGN Premium Bikes — home page" />
+              <div class="work-card-body">
+                <h3>KGN Premium Bikes</h3>
+                <p>It works because customers can find a bike in seconds — search, clear prices and one-tap WhatsApp or call turn visits into enquiries, while the owner manages stock and leads from one simple portal.</p>
+              </div>
+            </article>
+            <!-- ===== END PROJECT CARD ===== -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PROCESS (six steps) ================= -->
+      <section class="process-section" id="process">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="kicker">How We Work</p>
+            <h2>A clear process, from first call to ongoing support</h2>
+            <p>No surprises. You know what happens at each stage — and what we need from you.</p>
+          </div>
+          <ol class="process-grid reveal">
+            <li class="process-step">
+              <div class="step-top"><span class="step-num">STEP 01</span><span class="step-arrow" aria-hidden="true">&rarr;</span></div>
+              <h3>Discover</h3>
+              <p>We learn about your business, your customers and what the project needs to achieve.</p>
+            </li>
+            <li class="process-step">
+              <div class="step-top"><span class="step-num">STEP 02</span><span class="step-arrow" aria-hidden="true">&rarr;</span></div>
+              <h3>Plan</h3>
+              <p>We agree the scope, structure and content — in writing — before any building starts.</p>
+            </li>
+            <li class="process-step">
+              <div class="step-top"><span class="step-num">STEP 03</span><span class="step-arrow" aria-hidden="true">&rarr;</span></div>
+              <h3>Design</h3>
+              <p>You see the design direction early, and we refine it together until it represents your business properly.</p>
+            </li>
+            <li class="process-step">
+              <div class="step-top"><span class="step-num">STEP 04</span><span class="step-arrow" aria-hidden="true">&rarr;</span></div>
+              <h3>Build</h3>
+              <p>We build the site or tool cleanly and responsively, testing on real phones, tablets and desktops.</p>
+            </li>
+            <li class="process-step">
+              <div class="step-top"><span class="step-num">STEP 05</span><span class="step-arrow" aria-hidden="true">&rarr;</span></div>
+              <h3>Launch</h3>
+              <p>We launch carefully, check everything works, and hand over with a clear explanation of what you have.</p>
+            </li>
+            <li class="process-step">
+              <div class="step-top"><span class="step-num">STEP 06</span><span class="step-arrow" aria-hidden="true">&check;</span></div>
+              <h3>Support</h3>
+              <p>We stay available for maintenance, fixes and improvements as your business grows.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ================= FOUNDER & CEO =================
+           PHOTO: the current founder photo is assets/founder-ceo.png
+           (new photo of Abdul Hadi supplied by William, 2026-11-15;
+           white shirt, dark grey studio background). To replace it,
+           drop a new portrait photo over assets/founder-ceo.png — the
+           panel is sized 3:4 and crops with object-fit: cover.
+           ============================================================ -->
+      <section class="founder-section" id="founder">
+        <div class="wrap">
+          <div class="section-head reveal" style="margin-bottom:40px">
+            <p class="kicker">Founder &amp; CEO</p>
+            <h2>Meet the founder</h2>
+            <p>ZENTRO is founder-led. The person who sets the vision and standards is the person accountable for your project.</p>
+          </div>
+
+          <div class="founder-grid reveal">
+            <!-- FOUNDER PHOTO PANEL — real photo: assets/founder-ceo.png (see comment above) -->
+            <div class="founder-photo-wrap">
+              <div class="founder-photo-panel">
+                <div class="founder-photo-frame">
+                  <img class="founder-photo" src="assets/founder-ceo.png" alt="Abdul Hadi, Founder & CEO of ZENTRO Technologies" />
+                  <span class="photo-corner tl" aria-hidden="true"></span>
+                  <span class="photo-corner tr" aria-hidden="true"></span>
+                  <span class="photo-corner bl" aria-hidden="true"></span>
+                  <span class="founder-seal" aria-hidden="true">AH</span>
+                </div>
+                <div class="founder-photo-caption">
+                  <strong>Abdul Hadi</strong>
+                  <span>Founder &amp; CEO</span>
+                  <small>ZENTRO Technologies</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="founder-content">
+              <h2>Abdul Hadi</h2>
+              <p class="founder-role-line">Founder &amp; CEO — ZENTRO Technologies</p>
+
+              <blockquote class="founder-quote">
+                <p>&ldquo;I believe every ambitious business deserves access to technology that moves it forward. ZENTRO was built with one vision: helping businesses establish a stronger digital foundation, operate smarter and prepare for what&rsquo;s next.&rdquo;</p>
+              </blockquote>
+
+              <p class="founder-about"><strong>About Abdul Hadi.</strong> Abdul Hadi is the Founder &amp; CEO of ZENTRO Technologies and the person accountable for ZENTRO&rsquo;s vision, standards and client relationships. He founded ZENTRO to help businesses establish a strong digital presence, operate smarter and grow sustainably — with technology that is practical, well-designed and built to last.</p>
+              <p class="founder-about">Because ZENTRO is founder-led, clients deal directly with the person responsible for the work — not a handoff to someone they never meet. Every project is shaped by the same principle: understand the business first, then build the technology around it.</p>
+
+              <div class="founder-philosophy" aria-label="Founder philosophy">
+                <span>Build with <em>purpose.</em></span>
+                <span>Deliver with <em>precision.</em></span>
+                <span>Grow with <em>vision.</em></span>
+              </div>
+
+              <div class="founder-signoff">
+                <span class="line" aria-hidden="true"></span>
+                <p><strong>Abdul Hadi</strong> — Founder &amp; CEO, ZENTRO Technologies</p>
+              </div>
+
+              <p class="founder-ctas"><a class="btn btn-outline" href="#about">More about ZENTRO <span aria-hidden="true">&rarr;</span></a> <a class="btn btn-primary" href="#contact">Work with ZENTRO</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CONTACT ================= -->
+      <section class="contact-section" id="contact">
+        <div class="wrap">
+          <div class="contact-grid">
+            <div class="contact-side reveal">
+              <p class="kicker">Contact</p>
+              <h2>Tell us about your project</h2>
+              <p>Use the form to start a project discussion. Tell us what your business does and what you&rsquo;d like to build — a few honest sentences are more useful than a perfect brief.</p>
+              <ul class="expect">
+                <li>Every enquiry is read by the founder.</li>
+                <li>We reply with clear next steps — and say honestly if we&rsquo;re not the right fit.</li>
+                <li>No obligation: a first conversation is just a conversation.</li>
+              </ul>
+              <!-- ADD CONTACT DETAILS HERE: when ZENTRO confirms its business
+                   email, phone number and social handles, add them in this
+                   column as clickable links (mailto: / tel:). None were
+                   confirmed in the brief, so none are shown. -->
+              <p style="margin-top:24px;font-size:0.93rem">Prefer to talk first? Send the form with a short message and ask for a call back — include your phone number and we&rsquo;ll come to you.</p>
+            </div>
+
+            <div class="reveal">
+              <!-- Enquiry form. There is no server behind this static page:
+                   on a valid submit, JavaScript prepares the enquiry and
+                   shows a summary the visitor can copy and keep. When a
+                   form endpoint / company email is confirmed, point this
+                   form at it (action + method) and remove the JS handler. -->
+              <form class="enquiry" id="enquiryForm" novalidate>
+                <div class="field">
+                  <label for="fName">Your name *</label>
+                  <input id="fName" name="name" type="text" autocomplete="name" required />
+                  <span class="error">Please enter your name.</span>
+                </div>
+                <div class="field">
+                  <label for="fBusiness">Business name</label>
+                  <input id="fBusiness" name="business" type="text" autocomplete="organization" />
+                </div>
+                <div class="field">
+                  <label for="fEmail">Email *</label>
+                  <input id="fEmail" name="email" type="email" autocomplete="email" required />
+                  <span class="error">Please enter a valid email address.</span>
+                </div>
+                <div class="field">
+                  <label for="fPhone">Phone <span class="optional">(optional)</span></label>
+                  <input id="fPhone" name="phone" type="tel" autocomplete="tel" />
+                </div>
+                <div class="field full">
+                  <label for="fService">What are you interested in? *</label>
+                  <!-- Keep these options in sync with the four service pillars above -->
+                  <select id="fService" name="service" required>
+                    <option value="">Select a service…</option>
+                    <option value="Digital Presence">01 — Digital Presence (website / landing page / store)</option>
+                    <option value="Brand &amp; Digital Experience">02 — Brand &amp; Digital Experience</option>
+                    <option value="Business Technology">03 — Business Technology (tools / dashboards / automation)</option>
+                    <option value="Growth Infrastructure">04 — Growth Infrastructure (maintenance / support)</option>
+                    <option value="Not sure yet">Not sure yet — I&rsquo;d like advice</option>
+                  </select>
+                  <span class="error">Please choose what you&rsquo;re interested in.</span>
+                </div>
+                <div class="field full">
+                  <label for="fMessage">About your project *</label>
+                  <textarea id="fMessage" name="message" required placeholder="What does your business do, and what would you like to build?"></textarea>
+                  <span class="error">Please tell us a little about your project (at least 20 characters).</span>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary" style="width:100%">Send Enquiry <span class="arrow" aria-hidden="true">&rarr;</span></button>
+                </div>
+                <p class="privacy-note">Privacy: your details are used only to respond to this enquiry. They are never sold or shared with third parties.</p>
+              </form>
+
+              <!-- Success state (hidden until a valid submit) -->
+              <div class="form-success" id="formSuccess" role="status" tabindex="-1">
+                <h3><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#397BFF" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span id="successTitle">Thank you.</span></h3>
+                <p>Your enquiry is prepared and ready. Copy it below and keep it for your records — and if you&rsquo;d like, send it to us through any channel once our direct contact details are published here.</p>
+                <div class="summary" id="successSummary"></div>
+                <div class="actions">
+                  <button type="button" class="btn btn-primary" id="copyEnquiryBtn">Copy my enquiry</button>
+                  <button type="button" class="btn btn-outline" id="newEnquiryBtn">Write another enquiry</button>
+                </div>
+                <p id="copyNote" style="margin-top:14px;font-size:0.9rem" aria-live="polite"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FINAL CTA ================= -->
+      <section class="final-cta">
+        <div class="wrap reveal">
+          <h2>Let&rsquo;s build something better.</h2>
+          <p>Better technology. Stronger businesses. Tell us where your business is going — we&rsquo;ll help you build the foundation to get there.</p>
+          <a class="btn btn-primary" href="#contact">Start a Project <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <a class="logo" href="#home" aria-label="ZENTRO Technologies — back to top">
+              <svg width="38" height="38" viewBox="0 0 38 38" fill="none" aria-hidden="true">
+                <rect x="1.5" y="1.5" width="35" height="35" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 11 H28 L16 27 H28" stroke="#397BFF" stroke-width="3.4" stroke-linecap="square" fill="none"/>
+              </svg>
+              <span class="logo-text">
+                <span class="logo-name">ZENTRO</span>
+                <span class="logo-sub">TECHNOLOGIES</span>
+              </span>
+            </a>
+            <p class="footer-tagline">Building the foundation of tomorrow. Digital experiences for ambitious businesses.</p>
+          </div>
+          <nav aria-label="Footer navigation">
+            <h3>Explore</h3>
+            <ul class="footer-nav">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#founder">Founder &amp; CEO</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#work">Our Work</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
+          <div>
+            <h3>Services</h3>
+            <ul class="footer-services">
+              <li>Digital Presence</li>
+              <li>Brand &amp; Digital Experience</li>
+              <li>Business Technology</li>
+              <li>Growth Infrastructure</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2026 ZENTRO Technologies. All rights reserved.</span>
+          <span>Abdul Hadi — Founder &amp; CEO</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Behaviour: all JavaScript lives in js/main.js -->
+    <script src="js/main.js"></script>
+  </body>
+</html>
